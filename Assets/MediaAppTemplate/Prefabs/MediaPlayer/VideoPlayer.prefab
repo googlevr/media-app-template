@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000013357446120}
+  m_IsPrefabParent: 1
+--- !u!1 &1000013310506558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010326295802}
+  - 114: {fileID: 114000013027033998}
+  - 114: {fileID: 114000011743119954}
+  - 114: {fileID: 114000013982670188}
+  m_Layer: 8
+  m_Name: GvrVideoPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000013357446120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012799951884}
+  - 114: {fileID: 114000010384905006}
+  - 114: {fileID: 114000014182867344}
+  - 114: {fileID: 114000013869208888}
+  m_Layer: 0
+  m_Name: VideoPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000010326295802
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013310506558}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012799951884}
+  m_RootOrder: 0
+--- !u!4 &4000012799951884
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357446120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 4000010326295802}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000010384905006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357446120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8dfdaf211abe404ebc87b24b8ba7d98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playbackControlsPrefab: {fileID: 1000012799152576, guid: 982babb2e52d048d1bd7197dc23c55f2,
+    type: 2}
+  player: {fileID: 114000011743119954}
+  closeOnIdleDelaySeconds: 5
+--- !u!114 &114000011743119954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013310506558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce60f0791d984b38acee05a1ab13ab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flatPrefab: {fileID: 1000011507948486, guid: 574500e95100540709b420ad748a39ee, type: 2}
+  Projection180Prefab: {fileID: 1000013473491052, guid: 082bb26e31a444292a90c698037db79f,
+    type: 2}
+  Projection360Prefab: {fileID: 1000013473491052, guid: b7f046c43695d4960b8409f0601f0517,
+    type: 2}
+  startingVideo:
+    Path: 
+    Type: 3
+--- !u!114 &114000013027033998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013310506558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab696dbb4639d49c2850b72abed32a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausedSpeedMilliseconds: 5
+  playForwardSpeedMilliseconds: 30000
+  playBackwardSpeedMilliseconds: 10000
+--- !u!114 &114000013869208888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357446120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed251b5b5623d4bcb9c57e5d0574d04b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionIdentifier: PlayingMedia
+--- !u!114 &114000013982670188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013310506558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf5e489a312f4a5b81963f4fef04e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusText: {fileID: 0}
+  bufferSize: 4
+  videoType: 3
+  videoURL: 
+  videoContentID: 
+  videoProviderId: 
+  initialResolution: 4096
+  adjustAspectRatio: 0
+  useSecurePath: 0
+--- !u!114 &114000014182867344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013357446120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1014755633344f5a761a0de125bcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

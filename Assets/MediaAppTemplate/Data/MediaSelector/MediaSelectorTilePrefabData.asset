@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f87254a33d24cee90129d34afe457d, type: 3}
+  m_Name: MediaSelectorTilePrefabData
+  m_EditorClassIdentifier: 
+  directoryPrefab: {fileID: 1000013814167202, guid: 5320f0a2626f04527a2adb720aae055a,
+    type: 2}
+  defaultFilePrefab: {fileID: 1000012703230040, guid: 32776b67cca5b42259213fa70dcc6832,
+    type: 2}
+  extentionsToPrefabs:
+  - extension: .mp4
+    prefab: {fileID: 1000010321021040, guid: 0fe56589cc18f495baabb6a2d1ac274e, type: 2}
+  - extension: .png
+    prefab: {fileID: 1000012703230040, guid: 32776b67cca5b42259213fa70dcc6832, type: 2}
+  - extension: .jpg
+    prefab: {fileID: 1000012703230040, guid: 32776b67cca5b42259213fa70dcc6832, type: 2}
