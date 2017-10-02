@@ -16,10 +16,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010355764452}
-  - 114: {fileID: 114000013668143282}
+  - component: {fileID: 4000010355764452}
+  - component: {fileID: 114000013668143282}
   m_Layer: 8
   m_Name: PhotoPlayer
   m_TagString: Untagged
@@ -32,12 +32,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012799951884}
-  - 114: {fileID: 114000011854744388}
-  - 114: {fileID: 114000011196485682}
-  - 114: {fileID: 114000013701719014}
+  - component: {fileID: 4000012799951884}
+  - component: {fileID: 114000011854744388}
+  - component: {fileID: 114000011196485682}
+  - component: {fileID: 114000013701719014}
   m_Layer: 0
   m_Name: PhotoPlayer
   m_TagString: Untagged
@@ -54,10 +54,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012799951884}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012799951884
 Transform:
   m_ObjectHideFlags: 1
@@ -67,11 +67,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010355764452}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011196485682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flatPrefab: {fileID: 1000011631013888, guid: 8636ec325ac9040d99f488860a577f25, type: 2}
-  Projection180Prefab: {fileID: 1000013473491052, guid: 082bb26e31a444292a90c698037db79f,
+  Projection180Prefab: {fileID: 1000013473491052, guid: 2c4ea4a1670d147d39c635a8059b85f4,
     type: 2}
-  Projection360Prefab: {fileID: 1000013473491052, guid: b7f046c43695d4960b8409f0601f0517,
+  Projection360Prefab: {fileID: 1000013473491052, guid: e040435c4e0874ef4b203eda23c70ef5,
     type: 2}
 --- !u!114 &114000013701719014
 MonoBehaviour:

@@ -26,29 +26,29 @@ namespace Daydream.MediaAppTemplate {
   public class PlaybackFormatSettings : MonoBehaviour, IPlaybackControl {
     private BaseMediaPlayer mediaPlayer;
     private BaseVideoPlayer videoPlayer;
-  
+
     [SerializeField]
     private Toggle monoToggle;
-  
+
     [SerializeField]
     private Toggle leftRightToggle;
-  
+
     [SerializeField]
     private Toggle topBottomToggle;
-  
+
     [SerializeField]
     private Toggle flatToggle;
-  
+
     [SerializeField]
     private Toggle projection180Toggle;
-  
+
     [SerializeField]
     private Toggle projection360Toggle;
 
     public void Setup(BaseMediaPlayer player) {
       mediaPlayer = player;
       videoPlayer = mediaPlayer as BaseVideoPlayer;
-  
+
       // Stereo
       Assert.IsNotNull(monoToggle);
       monoToggle.onValueChanged.AddListener(OnMonoToggleChanged);
@@ -56,12 +56,12 @@ namespace Daydream.MediaAppTemplate {
       leftRightToggle.onValueChanged.AddListener(OnLeftRightToggleChanged);
       Assert.IsNotNull(topBottomToggle);
       topBottomToggle.onValueChanged.AddListener(OnTopBottomToggleChanged);
-  
+
       // Make sure all Stereo toggles are in the same toggle group.
       Assert.IsTrue(monoToggle.group != null
         && monoToggle.group == leftRightToggle.group
         && monoToggle.group == topBottomToggle.group);
-  
+
       // Projection
       Assert.IsNotNull(flatToggle);
       flatToggle.onValueChanged.AddListener(OnFlatToggleChanged);
@@ -69,16 +69,16 @@ namespace Daydream.MediaAppTemplate {
       projection180Toggle.onValueChanged.AddListener(OnProjection180ToggleChanged);
       Assert.IsNotNull(projection360Toggle);
       projection360Toggle.onValueChanged.AddListener(OnProjection360ToggleChanged);
-  
+
       // Make sure all Projection toggles are in the same toggle group.
       Assert.IsTrue(flatToggle.group != null
         && flatToggle.group == projection180Toggle.group
         && flatToggle.group == projection360Toggle.group);
-  
+
       SetStereoModeToggle(mediaPlayer.CurrentStereoMode);
       SetProjectionModeToggle(mediaPlayer.CurrentProjectionMode);
       SetTogglesInteractable(mediaPlayer.MediaScreen != null);
-  
+
       mediaPlayer.OnStereoModeChanged += SetStereoModeToggle;
       mediaPlayer.OnProjectionModeChanged += SetProjectionModeToggle;
       mediaPlayer.OnMediaScreenChanged += OnMediaScreenChanged;
@@ -122,7 +122,7 @@ namespace Daydream.MediaAppTemplate {
       monoToggle.isOn = false;
       leftRightToggle.isOn = false;
       topBottomToggle.isOn = false;
-  
+
       switch (stereoMode) {
         case BaseMediaPlayer.StereoMode.Mono:
           monoToggle.isOn = true;
@@ -143,17 +143,16 @@ namespace Daydream.MediaAppTemplate {
       if (stereoMode == mediaPlayer.CurrentStereoMode) {
         return;
       }
-  
+
       if (mediaPlayer.MediaScreen == null) {
         return;
       }
-  
+
       mediaPlayer.CurrentStereoMode = stereoMode;
-      Texture texture = mediaPlayer.MediaScreen.sharedMaterial.mainTexture;
       float frameAspectRatio =
-        ImageBasedProjectionDetectorHelpers.CalculateFrameAspectRatio(texture, stereoMode);
+        ImageBasedProjectionDetectorHelpers.CalculateFrameAspectRatio(mediaPlayer.RawAspectRatio, stereoMode);
       mediaPlayer.CurrentAspectRatio = frameAspectRatio;
-  
+
       mediaPlayer.SaveCurrentFormat();
     }
 
@@ -161,7 +160,7 @@ namespace Daydream.MediaAppTemplate {
       flatToggle.isOn = false;
       projection180Toggle.isOn = false;
       projection360Toggle.isOn = false;
-  
+
       switch (projectionMode) {
         case BaseMediaPlayer.ProjectionMode.Flat:
           flatToggle.isOn = true;
@@ -182,7 +181,7 @@ namespace Daydream.MediaAppTemplate {
       if (projectionMode == mediaPlayer.CurrentProjectionMode) {
         return;
       }
-  
+
       mediaPlayer.CurrentProjectionMode = projectionMode;
       mediaPlayer.SaveCurrentFormat();
     }
@@ -227,7 +226,7 @@ namespace Daydream.MediaAppTemplate {
       monoToggle.interactable = interactable;
       leftRightToggle.interactable = interactable;
       topBottomToggle.interactable = interactable;
-  
+
       flatToggle.interactable = interactable;
       projection180Toggle.interactable = interactable;
       projection360Toggle.interactable = interactable;

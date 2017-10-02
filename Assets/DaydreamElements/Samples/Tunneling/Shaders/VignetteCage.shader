@@ -30,8 +30,6 @@ Shader "GoogleVR/Tunneling/VignetteCage" {
       CGPROGRAM
       #pragma vertex vert
       #pragma fragment frag
-      #include "Assets/GoogleVR/Shaders/GvrUnityCompatibility.cginc"
-
 
       struct appdata {
         float4 vertex : POSITION;

@@ -162,7 +162,7 @@ namespace Daydream.MediaAppTemplate {
     }
 
     void Update() {
-      if (GvrController.Recentered && enableRotation) {
+      if (GvrControllerInput.Recentered && enableRotation) {
         Quaternion currentRotation = transform.parent.localRotation;
         Vector3 eulerAngles = currentRotation.eulerAngles;
         eulerAngles.y = 0.0f;
@@ -220,9 +220,9 @@ namespace Daydream.MediaAppTemplate {
     private Quaternion CalculateControllerYawPitchRotation(PointerEventData eventData) {
       Vector3 pointerPos = eventData.pointerCurrentRaycast.worldPosition;
       if (pointerPos == Vector3.zero) {
-        Transform pointerTransform = GvrPointerManager.Pointer.PointerTransform;
+        Transform pointerTransform = GvrPointerInputModule.Pointer.PointerTransform;
         pointerPos = pointerTransform.position +
-        (pointerTransform.forward * GvrPointerManager.Pointer.MaxPointerDistance);
+          (pointerTransform.forward * GvrPointerInputModule.Pointer.MaxPointerDistance);
       }
       Vector3 controllerDir = pointerPos - Camera.main.transform.position;
       controllerDir.Normalize();

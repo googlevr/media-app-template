@@ -79,7 +79,7 @@ namespace Daydream.MediaAppTemplate {
       wasResetIdlingConditionMet = resetIdlingConditionMet;
   
       if (lastRecordedRotation != null) {
-        float dot = Quaternion.Dot(lastRecordedRotation.Value, GvrController.Orientation);
+        float dot = Quaternion.Dot(lastRecordedRotation.Value, GvrControllerInput.Orientation);
         if (dot < maxRotationChangeDot) {
           idleTimestampSeconds = null;
         } else if (idleTimestampSeconds == null) {
@@ -87,7 +87,7 @@ namespace Daydream.MediaAppTemplate {
         }
       }
   
-      lastRecordedRotation = GvrController.Orientation;
+      lastRecordedRotation = GvrControllerInput.Orientation;
     }
   }
 }

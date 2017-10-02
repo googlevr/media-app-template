@@ -67,7 +67,7 @@ namespace Daydream.MediaAppTemplate {
       }
   
       renderTexture = RenderTexture.GetTemporary(TEXTURE_SIZE, TEXTURE_SIZE, 0);
-      Graphics.Blit(targetRenderer.material.mainTexture, renderTexture);
+      Graphics.Blit(targetRenderer.material.mainTexture, renderTexture, targetRenderer.material);
     }
 
     private void CalculateAverageColor() {
@@ -76,7 +76,7 @@ namespace Daydream.MediaAppTemplate {
       }
   
       RenderTexture.active = renderTexture;
-      targetTexture.ReadPixels(new Rect(0, 0, TEXTURE_SIZE, TEXTURE_SIZE), 0, 0);
+      targetTexture.ReadPixels(new Rect(0, 0, TEXTURE_SIZE, TEXTURE_SIZE), 0, 0, false);
       RenderTexture.ReleaseTemporary(renderTexture);
       renderTexture = null;
       Color32[] pixels = targetTexture.GetPixels32();

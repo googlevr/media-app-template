@@ -72,13 +72,13 @@ namespace DaydreamElements.Tunneling {
     }
 
     protected virtual void Update() {
-      if (GvrController.TouchDown) {
-        initTouch = GvrController.TouchPos;
+      if (GvrControllerInput.TouchDown) {
+        initTouch = GvrControllerInput.TouchPos;
       } else if (CanStartMoving()) {
         isMoving = true;
         smoothTouch = Vector2.zero;
         vignetteController.ShowVignette();
-      } else if (GvrController.TouchUp) {
+      } else if (GvrControllerInput.TouchUp) {
         StopMoving();
       }
 
@@ -188,7 +188,7 @@ namespace DaydreamElements.Tunneling {
     }
 
     private bool CanStartMoving() {
-      if (!GvrController.IsTouching) {
+      if (!GvrControllerInput.IsTouching) {
         return false;
       }
 
@@ -200,7 +200,7 @@ namespace DaydreamElements.Tunneling {
         return false;
       }
 
-      bool isOutsideSlop = IsTouchOutsideSlop(GvrController.TouchPos);
+      bool isOutsideSlop = IsTouchOutsideSlop(GvrControllerInput.TouchPos);
       bool needsSwipe = onlyMoveAfterSwiping && !isOutsideSlop;
 
 
@@ -221,11 +221,11 @@ namespace DaydreamElements.Tunneling {
     }
 
     private Vector2 TouchPosBetweenNegativeOneToOne() {
-      // GvrController.TouchPos gives you values between 0.0 and 1.0, with 0.5 being the middle of the touch pad.
+      // GvrControllerInput.TouchPos gives you values between 0.0 and 1.0, with 0.5 being the middle of the touch pad.
       // We must convert this to a range of -1.0 to 1.0 with 0.0 in the middle.
       Vector2 result;
-      result.x = (GvrController.TouchPos.x * 2.0f) - 1.0f;
-      result.y = ((GvrController.TouchPos.y * 2.0f) - 1.0f) * -1.0f;
+      result.x = (GvrControllerInput.TouchPos.x * 2.0f) - 1.0f;
+      result.y = ((GvrControllerInput.TouchPos.y * 2.0f) - 1.0f) * -1.0f;
       result.x = Mathf.Clamp(result.x, -1.0f, 1.0f);
       result.y = Mathf.Clamp(result.y, -1.0f, 1.0f);
       return result;

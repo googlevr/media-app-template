@@ -17,7 +17,7 @@ using System.Collections;
 
 
 namespace Daydream.MediaAppTemplate {
-  
+
   /// Helper functions for detecting the stereo projection format of a texture
   /// based on analyzing the texture.
   public static class ImageBasedProjectionDetectorHelpers {
@@ -25,34 +25,39 @@ namespace Daydream.MediaAppTemplate {
 
     /// Calculates the aspect ratio of a frame within a texture based on the textures stereo mode.
     public static float CalculateFrameAspectRatio(Texture texture, BaseMediaPlayer.StereoMode stereoMode) {
-      float width = texture.width;
-      float height = texture.height;
-      float halfWidth = width * 0.5f;
-      float halfHeight = height * 0.5f;
-  
-      float fullAspectRatio = width / height;
+      // Avoid dividing by zero.
+      if (texture.height == 0.0f) {
+        return 0.0f;
+      }
+
+      float rawAspectRatio = (float)texture.width / (float)texture.height;
+      return CalculateFrameAspectRatio(rawAspectRatio, stereoMode);
+    }
+
+    /// Calculates the aspect ratio of a frame within a texture based on the textures stereo mode.
+    public static float CalculateFrameAspectRatio(float rawAspectRatio, BaseMediaPlayer.StereoMode stereoMode) {
       float result;
-  
+
       switch (stereoMode) {
         case BaseMediaPlayer.StereoMode.LeftRight:
-          result = halfWidth / height;
+          result = rawAspectRatio / 2.0f;
           break;
         case BaseMediaPlayer.StereoMode.TopBottom:
-          result = width / halfHeight;
+          result = rawAspectRatio * 2.0f;
           break;
         default:
-          result = fullAspectRatio;
+          result = rawAspectRatio;
           break;
       }
-  
+
       // Some stereo textures pack the texture data of a frame by squashing the frame
       // and then expecting it to still be rendered at the original aspect ratio.
       // Make a best guess for when the frame is squashed...
       // TODO: Make this more robust.
       if (result > SQUASHED_FRAME_THRESHOLD) {
-        result = fullAspectRatio;
+        result = rawAspectRatio;
       }
-  
+
       return result;
     }
   }

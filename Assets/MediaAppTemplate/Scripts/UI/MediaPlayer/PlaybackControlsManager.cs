@@ -71,7 +71,7 @@ namespace Daydream.MediaAppTemplate {
         return;
       }
   
-      if (GvrController.ClickButtonUp && !playbackControls.IsPointerHovering) {
+      if (GvrControllerInput.ClickButtonUp && !playbackControls.IsPointerHovering) {
         TogglePlaybackControls();
       }
   
@@ -86,7 +86,7 @@ namespace Daydream.MediaAppTemplate {
         closeAfterDelayCoroutine = null;
       }
   
-      if (GvrController.AppButtonUp) {
+      if (GvrControllerInput.AppButtonUp) {
         MediaPlayerEventDispatcher.RaiseExitMedia();
       }
     }

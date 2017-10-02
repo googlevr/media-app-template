@@ -29,7 +29,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return false;
         }
-  
+
         return videoPlayer.VideoReady && queuedPlayCoroutine == null;
       }
     }
@@ -39,7 +39,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return false;
         }
-  
+
         return videoPlayer.VideoReady && !Paused;
       }
     }
@@ -49,18 +49,18 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return false;
         }
-  
+
         return videoPlayer.IsPaused || briefUnpauseCoroutine != null;
       }
       set {
         if (videoPlayer == null) {
           return;
         }
-  
+
         if (value == videoPlayer.IsPaused) {
           return;
         }
-  
+
         if (value) {
           videoPlayer.Pause();
         } else {
@@ -75,20 +75,20 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return 0;
         }
-  
+
         return videoPlayer.CurrentPosition;
       }
       set {
         if (videoPlayer == null) {
           return;
         }
-  
+
         if (videoPlayer.CurrentPosition == value) {
           return;
         }
-  
+
         videoPlayer.CurrentPosition = value;
-  
+
         if (videoPlayer.IsPaused) {
           QueueBriefUnpauseIfNeeded();
         }
@@ -100,7 +100,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return 0;
         }
-  
+
         return videoPlayer.VideoDuration;
       }
     }
@@ -110,7 +110,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return false;
         }
-  
+
         return videoPlayer.CurrentStereoMode != GvrVideoPlayerTexture.StereoMode.NoValue;
       }
     }
@@ -120,7 +120,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return StereoMode.Unknown;
         }
-  
+
         switch (videoPlayer.CurrentStereoMode) {
           case GvrVideoPlayerTexture.StereoMode.LeftRight:
             return StereoMode.LeftRight;
@@ -139,7 +139,7 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return false;
         }
-  
+
         return videoPlayer.HasProjection;
       }
     }
@@ -149,12 +149,22 @@ namespace Daydream.MediaAppTemplate {
         if (videoPlayer == null) {
           return null;
         }
-  
+
         if (queuedPlayCoroutine != null) {
           return null;
         }
-  
+
         return videoPlayer.CurrentFrameTexture;
+      }
+    }
+
+    public override float RawAspectRatio {
+      get {
+        if (videoPlayer == null) {
+          return 0.0f;
+        }
+
+        return videoPlayer.AspectRatio;
       }
     }
 
@@ -177,7 +187,7 @@ namespace Daydream.MediaAppTemplate {
       if (briefUnpauseCoroutine != null) {
         return;
       }
-  
+
       briefUnpauseCoroutine = StartCoroutine(BriefUnpause());
     }
 
@@ -192,13 +202,13 @@ namespace Daydream.MediaAppTemplate {
       do {
         yield return new WaitForEndOfFrame();
       } while (!videoPlayer.VideoReady);
-  
+
       videoPlayer.Play();
-  
+
       do {
         yield return new WaitForEndOfFrame();
       } while (!videoPlayer.VideoReady);
-  
+
       videoPlayer.Pause();
       briefUnpauseCoroutine = null;
     }
@@ -207,7 +217,7 @@ namespace Daydream.MediaAppTemplate {
       if (queuedPlayCoroutine != null) {
         return;
       }
-  
+
       queuedPlayCoroutine = StartCoroutine(QueuePlayCoroutine(options));
     }
 
@@ -225,20 +235,20 @@ namespace Daydream.MediaAppTemplate {
         videoPlayer = gameObject.AddComponent<GvrVideoPlayerTexture>();
         videoPlayer.Screen = MediaScreen;
       }
-  
+
       videoPlayer.videoType = (GvrVideoPlayerTexture.VideoType)options.Type;
       videoPlayer.videoURL = options.Path;
-  
+
       yield return new WaitForEndOfFrame();
-  
+
       videoPlayer.Init();
-  
+
       while (!videoPlayer.VideoReady) {
         yield return new WaitForEndOfFrame();
       }
-  
+
       videoPlayer.Play();
-  
+
       queuedPlayCoroutine = null;
       yield return null;
     }
@@ -247,7 +257,7 @@ namespace Daydream.MediaAppTemplate {
       if (videoPlayer == null) {
         return;
       }
-  
+
       videoPlayer.Screen = MediaScreen;
     }
   }

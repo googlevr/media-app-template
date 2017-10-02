@@ -41,24 +41,21 @@ namespace Daydream.MediaAppTemplate {
 
     [SerializeField]
     private GameObject flatPrefab;
-  
+
     [SerializeField]
     private GameObject Projection180Prefab;
-  
+
     [SerializeField]
     private GameObject Projection360Prefab;
-  
+
     protected ProjectionDetectorQueue detectorQueue;
-  
+
     private StereoMode stereoMode = StereoMode.Mono;
     private ProjectionMode projectionMode = ProjectionMode.Flat;
     private float currentAspectRatio;
-  
+
     private SavedStereoProjectionDetector savedStereoProjectionDetector;
-    private MaterialPropertyBlock materialPropertyBlock;
-    private int leftRightId;
-    private int topBottomId;
-  
+
     private Renderer mediaScreen;
 
     public abstract string FilePath { get; }
@@ -68,7 +65,7 @@ namespace Daydream.MediaAppTemplate {
         if (MediaScreen == null) {
           return Vector3.zero;
         }
-  
+
         return MediaScreen.transform.localPosition;
       }
     }
@@ -78,7 +75,7 @@ namespace Daydream.MediaAppTemplate {
         if (MediaScreen == null) {
           return Camera.main.transform.position;
         }
-  
+
         return MediaScreen.transform.position;
       }
     }
@@ -88,7 +85,7 @@ namespace Daydream.MediaAppTemplate {
         if (MediaScreen == null) {
           return Vector3.one;
         }
-  
+
         return MediaScreen.transform.localScale;
       }
     }
@@ -101,10 +98,10 @@ namespace Daydream.MediaAppTemplate {
         if (stereoMode == value) {
           return;
         }
-  
+
         stereoMode = value;
         SetShaderParameters();
-  
+
         if (OnStereoModeChanged != null) {
           OnStereoModeChanged(stereoMode);
         }
@@ -119,11 +116,11 @@ namespace Daydream.MediaAppTemplate {
         if (projectionMode == value) {
           return;
         }
-  
+
         projectionMode = value;
         DestroyScreen();
         InitScreen();
-  
+
         if (OnProjectionModeChanged != null) {
           OnProjectionModeChanged(projectionMode);
         }
@@ -136,19 +133,36 @@ namespace Daydream.MediaAppTemplate {
       }
       set {
         currentAspectRatio = value;
-  
+
         if (MediaScreen == null) {
           return;
         }
-  
+
         MediaScreenController screenController =
           MediaScreen.GetComponent<MediaScreenController>();
-  
+
         if (screenController == null) {
           return;
         }
-  
+
         screenController.AspectRatio = currentAspectRatio;
+      }
+    }
+
+    /// The raw aspect ratio of the texture for this media.
+    /// CurrentAspectRatio may be different due to the current StereoMode.
+    public virtual float RawAspectRatio {
+      get {
+        if (mediaScreen == null) {
+          return 0.0f;
+        }
+
+        Texture texture = mediaScreen.sharedMaterial.mainTexture;
+        if (texture == null) {
+          return 0.0f;
+        }
+
+        return (float)texture.width / (float)texture.height;
       }
     }
 
@@ -160,9 +174,9 @@ namespace Daydream.MediaAppTemplate {
         if (value == mediaScreen) {
           return;
         }
-  
+
         mediaScreen = value;
-  
+
         if (OnMediaScreenChanged != null) {
           OnMediaScreenChanged(mediaScreen);
         }
@@ -187,38 +201,38 @@ namespace Daydream.MediaAppTemplate {
       if (format == null) {
         format = new StereoProjectionFormat();
       }
-  
+
       CurrentAspectRatio = format.frameAspectRatio;
       CurrentStereoMode = format.stereoMode;
-  
+
       bool changedProjection = false;
       if (CurrentProjectionMode != format.projectionMode) {
         CurrentProjectionMode = format.projectionMode;
         changedProjection = true;
       }
-  
+
       // The screen is automatically re-initialized when the projection is detected,
       // make sure we don't init it twice.
       if (!changedProjection) {
         InitScreen();
       }
-  
+
       SaveCurrentFormat();
     }
 
     public void SaveCurrentFormat() {
       StereoProjectionFormat format = savedStereoProjectionDetector.SavedFormat;
-  
+
       if (CompareFormat(format)) {
         return;
       }
-  
+
       if (format == null) {
         format = new StereoProjectionFormat();
       }
-  
+
       Debug.Log("Saving Stereo Projection Format.");
-  
+
       format.projectionMode = CurrentProjectionMode;
       format.stereoMode = CurrentStereoMode;
       format.frameAspectRatio = CurrentAspectRatio;
@@ -229,19 +243,19 @@ namespace Daydream.MediaAppTemplate {
       if (format == null) {
         return false;
       }
-  
+
       if (format.projectionMode != CurrentProjectionMode) {
         return false;
       }
-  
+
       if (format.stereoMode != CurrentStereoMode) {
         return false;
       }
-  
+
       if (format.frameAspectRatio != CurrentAspectRatio) {
         return false;
       }
-  
+
       return true;
     }
 
@@ -249,13 +263,13 @@ namespace Daydream.MediaAppTemplate {
       if (MediaScreen == null) {
         CreateScreen();
       }
-  
+
       SetupScreen();
     }
 
     protected virtual void CreateScreen() {
       DestroyScreen();
-  
+
       GameObject screen;
       switch (CurrentProjectionMode) {
         case ProjectionMode.Flat:
@@ -271,13 +285,13 @@ namespace Daydream.MediaAppTemplate {
           screen = GameObject.Instantiate(flatPrefab);
           break;
       }
-  
+
       screen.transform.SetParent(transform, false);
       MediaScreen = screen.GetComponent<Renderer>();
-  
+
       // Make sure the aspect ratio gets updated for the new screen.
       CurrentAspectRatio = CurrentAspectRatio;
-  
+
       Debug.Log("Created Media Screen.");
     }
 
@@ -286,7 +300,7 @@ namespace Daydream.MediaAppTemplate {
         Destroy(MediaScreen.gameObject);
         MediaScreen = null;
         Debug.Log("Destroyed Media Screen.");
-  
+
       }
     }
 
@@ -294,40 +308,32 @@ namespace Daydream.MediaAppTemplate {
       if (MediaScreen == null) {
         return;
       }
-  
-      int leftRight = 0;
-      int topBottom = 0;
-  
+
+      MediaScreen.sharedMaterial.DisableKeyword("_STEREOMODE_TOPBOTTOM");
+      MediaScreen.sharedMaterial.DisableKeyword("_STEREOMODE_LEFTRIGHT");
+
       switch (CurrentStereoMode) {
-        case StereoMode.LeftRight:
-          leftRight = 1;
-          break;
         case StereoMode.TopBottom:
-          topBottom = 1;
+          MediaScreen.sharedMaterial.EnableKeyword("_STEREOMODE_TOPBOTTOM");
+          break;
+        case StereoMode.LeftRight:
+          MediaScreen.sharedMaterial.EnableKeyword("_STEREOMODE_LEFTRIGHT");
           break;
         default:
           break;
       }
-  
-      MediaScreen.GetPropertyBlock(materialPropertyBlock);
-      materialPropertyBlock.SetFloat(leftRightId, leftRight);
-      materialPropertyBlock.SetFloat(topBottomId, topBottom);
-      MediaScreen.SetPropertyBlock(materialPropertyBlock);
     }
 
     protected virtual void SetupScreen() {
       if (MediaScreen == null) {
         return;
       }
-  
+
       SetupScreenInternal();
       SetShaderParameters();
     }
 
     protected virtual void Awake() {
-      materialPropertyBlock = new MaterialPropertyBlock();
-      leftRightId = Shader.PropertyToID("_LeftRight");
-      topBottomId = Shader.PropertyToID("_TopBottom");
     }
 
     protected virtual void OnDestroy() {

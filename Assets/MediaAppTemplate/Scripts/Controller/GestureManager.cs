@@ -41,13 +41,13 @@ namespace Daydream.MediaAppTemplate {
         Debug.LogError("Cannot have multiple instances of Conditions Manager.");
       }
       instance = this;
-      wasTouching = GvrController.IsTouching;
+      wasTouching = GvrControllerInput.IsTouching;
     }
 
     private void Update() {
-      gestureDetector.Update(GvrController.TouchPos, GvrController.IsTouching,
+      gestureDetector.Update(GvrControllerInput.TouchPos, GvrControllerInput.IsTouching,
         wasTouching);
-      wasTouching = GvrController.IsTouching;
+      wasTouching = GvrControllerInput.IsTouching;
     }
   }
 }
