@@ -144,7 +144,7 @@ namespace Daydream.MediaAppTemplate {
       }
     }
 
-    public override Texture2D CurrentFrameTexture {
+    public override Texture CurrentFrameTexture {
       get {
         if (videoPlayer == null) {
           return null;

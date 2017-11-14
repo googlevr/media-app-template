@@ -53,7 +53,7 @@ namespace Daydream.MediaAppTemplate {
     public abstract long CurrentPositionMilliseconds { get; set; }
     public abstract long DurationMilliseconds { get; }
     public abstract void Stop();
-    public abstract Texture2D CurrentFrameTexture { get; }
+    public abstract Texture CurrentFrameTexture { get; }
     protected abstract void PlayInternal(PlayOptions options);
 
     public PlayOptions CurrentVideo { get; private set; }

@@ -16,12 +16,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010326295802}
-  - 114: {fileID: 114000013027033998}
-  - 114: {fileID: 114000011743119954}
-  - 114: {fileID: 114000013982670188}
+  - component: {fileID: 4000010326295802}
+  - component: {fileID: 114000013027033998}
+  - component: {fileID: 114000011743119954}
+  - component: {fileID: 114000013982670188}
   m_Layer: 8
   m_Name: GvrVideoPlayer
   m_TagString: Untagged
@@ -34,12 +34,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012799951884}
-  - 114: {fileID: 114000010384905006}
-  - 114: {fileID: 114000014182867344}
-  - 114: {fileID: 114000013869208888}
+  - component: {fileID: 4000012799951884}
+  - component: {fileID: 114000010384905006}
+  - component: {fileID: 114000014182867344}
+  - component: {fileID: 114000013869208888}
   m_Layer: 0
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -56,10 +56,10 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012799951884}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012799951884
 Transform:
   m_ObjectHideFlags: 1
@@ -69,11 +69,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010326295802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000010384905006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,12 +142,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013310506558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf5e489a312f4a5b81963f4fef04e9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 410d5a91205334dda9fd1bf3d325809a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   statusText: {fileID: 0}
-  bufferSize: 4
-  videoType: 3
+  videoType: 0
   videoURL: 
   videoContentID: 
   videoProviderId: 

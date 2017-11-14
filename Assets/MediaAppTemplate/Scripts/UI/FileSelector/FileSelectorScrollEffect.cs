@@ -14,6 +14,7 @@
 
 using UnityEngine;
 using System.Collections;
+using DaydreamElements.Common;
 
 namespace Daydream.MediaAppTemplate {
 

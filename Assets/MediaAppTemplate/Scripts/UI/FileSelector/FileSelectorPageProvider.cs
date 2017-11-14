@@ -19,6 +19,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DaydreamElements.Common;
 
 namespace Daydream.MediaAppTemplate {
 
